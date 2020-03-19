@@ -3,6 +3,10 @@
 
 - 완성된 화면
 
+<center>
+<img src="https://user-images.githubusercontent.com/54485132/77032770-b8ae9600-69e8-11ea-8d6b-1867af3525c6.gif" width="40%">
+</center>
+
 
 # 0. gradle 설정
 **build.gradle 상단에 아래 코드 작성**
@@ -174,3 +178,9 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
+<div>
+    <center>
+    <img src="https://user-images.githubusercontent.com/54485132/77032773-b9472c80-69e8-11ea-8e91-0f39bb201d09.png" width="40%">
+    <img src="https://user-images.githubusercontent.com/54485132/77032850-f6132380-69e8-11ea-961a-779ce2ebc33f.gif" width="40%">
+    </center>
+</div>
