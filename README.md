@@ -359,13 +359,22 @@ class MainActivity : AppCompatActivity() {
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
-```
+```  
 
+<div>
+    <center>
+    <img src="https://user-images.githubusercontent.com/54485132/77144531-790bab00-6ac9-11ea-9363-a40ffcc9cdbe.png" width="100%">
+    </center>
+</div>  
 
-##### 참고
+##### 참고  
 **- RecyclerView에서 app:layoutManager 속성을 이용해 Kotlin/Java코드를 이용하지 않고 지정 가능**  
 **- layoutManager가 LinearLayoutManager인 경우 orientation 지정**  
 **- layoutManager가 GridLayoutManager인 경우 app:spanCount 속성으로 Grid 개수 설정 가능**  
-**- tools:listItem = "" 을 이용하여 preview모드에서 리사이클러뷰 적용된 상태를 확인 가능**  
+**- tools:listItem = "" 을 이용하여 preview모드에서 리사이클러뷰 적용된 상태를 확인 가능**    
+
+
+
+
 
 
