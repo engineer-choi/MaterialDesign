@@ -3,11 +3,13 @@ package com.example.materialexercise
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
+import com.skydoves.transformationlayout.onTransformationStartContainer
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        onTransformationStartContainer()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
@@ -27,7 +29,6 @@ class MainActivity : AppCompatActivity() {
                 override fun onPageSelected(position: Int) {
                     main_bottom_navigation.menu.getItem(position).isChecked = true
                 }
-
             })
         }
         main_bottom_navigation.setOnNavigationItemSelectedListener {
