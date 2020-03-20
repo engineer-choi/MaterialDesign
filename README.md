@@ -373,7 +373,35 @@ class MainActivity : AppCompatActivity() {
 **- layoutManager가 GridLayoutManager인 경우 app:spanCount 속성으로 Grid 개수 설정 가능**  
 **- tools:listItem = "" 을 이용하여 preview모드에서 리사이클러뷰 적용된 상태를 확인 가능**    
 
+#### TransformationLayout에 대한 설명  
 
+- layout 설명  
+<div>
+    <center>
+        <img src="https://user-images.githubusercontent.com/54485132/77150272-df4afa80-6ad6-11ea-97e4-3b66cfca5297.png" width="45%">
+        <img src="https://user-images.githubusercontent.com/54485132/77150276-e07c2780-6ad6-11ea-81ad-2858a3e5bd00.png" width="45%">     
+    </center>
+</div>     
+
+
+> Transform을 시작하겠다 라는 신호를 줄 레이아웃을 감싸고, target으로 변하게 될 대상을 지정한다.  
+여기서는 FloatingActionButton이 Transform을 시작하겠다! 라고 신호를 줄 레이아웃이다(TransformLayout으로 감싼다)
+target은 CardView이며, transform 신호가 오기 전까지 뷰에서 보이지 않게 된다.  
+
+- 기능 입히기  
+
+<div>
+    <center>
+       <img src="https://user-images.githubusercontent.com/54485132/77150278-e114be00-6ad6-11ea-9eeb-d053dcc08aab.png" width="45%">
+        <img src="https://user-images.githubusercontent.com/54485132/77150279-e1ad5480-6ad6-11ea-8814-2b6e7fa61aee.png" width="45%">
+    </center>
+</div>     
+
+
+ > TransformationLayout이 선언되어있는 Activitiy의 onCreate에 super.onCreate()가 호출 되기 전에 onTransformationStartContainer()를 호출해 주어야 한다. Fragment의 경우 Fragment가 소속되어 있는 Activity의 onCreate()에 선언해 줘야 한다(onCreateView에 하면 안됨)  
+ 이후 FloatingActionButton 클릭시 이벤트를 추가한다.  
+ 
+ 
 
 
 
