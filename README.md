@@ -402,6 +402,89 @@ target은 CardView이며, transform 신호가 오기 전까지 뷰에서 보이�
  이후 FloatingActionButton 클릭시 이벤트를 추가한다.  
  
  
+# 3. CoordinatorLayout을 이용한 AppBar와 NestedScrollView 연동하기  
+<div>
+    <center>
+       <img src="https://user-images.githubusercontent.com/54485132/77223836-8006ec00-6ba3-11ea-9e35-b1423089e945.gif" width="45%">
+        <img src="https://user-images.githubusercontent.com/54485132/77223838-81d0af80-6ba3-11ea-9f2e-2b8f3cb5f031.gif" width="45%">
+    </center>
+</div>     
+
+## [1] 기본 지식  
+
+![그림1](https://user-images.githubusercontent.com/54485132/77223840-8301dc80-6ba3-11ea-893f-0282208c30ed.png)  
+  
+  ![그림2](https://user-images.githubusercontent.com/54485132/77223839-82694600-6ba3-11ea-9acc-f71d8d5bd0db.png)  
+  ![그림3](https://user-images.githubusercontent.com/54485132/77223842-8301dc80-6ba3-11ea-843b-f6fad74bec6b.png)  
+  
+## [2] 위 내용을 바탕으로 activity_detail.xml 작성  
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            app:contentScrim="@color/colorPrimary"
+            app:title="타이틀입니다"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                app:layout_collapseMode="parallax"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/img_detailView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="1:1.2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:padding="21dp"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_detail_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_title" />
+
+            <TextView
+                android:id="@+id/tv_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제목"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+```
 
 
 
