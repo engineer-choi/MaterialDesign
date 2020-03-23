@@ -17,7 +17,9 @@
 
 
 ### [0]
-# gradle 설정
+# gradle 설정  
+
+[목차로 돌아가기](#index)  
 **build.gradle 상단에 아래 코드 작성**
 
 ```kotlin
