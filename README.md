@@ -2,6 +2,9 @@
 
 > 출처 : https://android-arsenal.com/details/1/8049
 
+
+
+
 - 완성된 화면
 
 <center>
@@ -487,5 +490,55 @@ target은 CardView이며, transform 신호가 오기 전까지 뷰에서 보이�
 ```
 
 
+# 4. TransformationLayout 이용하여 인텐트에 대한 애니매이션 적용하기  
 
+<div>
+    <center>
+        <img src="https://user-images.githubusercontent.com/54485132/77274266-e18c9f00-6cf8-11ea-8edd-f7175bc2400e.gif" width=40%>
+    </center>
+</div>
+
+  
+### [1] DetailActivity.kt  
+```kotlin
+class DetailActivity : AppCompatActivity() {
+
+    companion object{
+        const val parmasExtraName = "parmasExtraName"
+        const val posterExtraName = "posterExtraName"
+        fun startActivity(
+            context : Context,
+            transformationLayout: TransformationLayout,
+            poster : Poster
+        ) {
+            if(context is Activity){
+                val bundle = transformationLayout.withView(transformationLayout, poster.name)
+                val intent = Intent(context,DetailActivity::class.java)
+                intent.putExtra(parmasExtraName, transformationLayout.getParcelableParams())
+                intent.putExtra(posterExtraName, poster)
+                context.startActivity(intent, bundle)
+            }
+        }
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        onTransformationEndContainer(intent.getParcelableExtra(parmasExtraName))
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_detail)
+        init()
+    }
+    private fun init(){
+        intent.getParcelableExtra<Poster>(posterExtraName)?.let{
+            Glide.with(this)
+                .load(it.poster)
+                .into(img_detailView)
+            tv_detail_title.text = it.name
+            tv_detail_description.text = it.description
+        }
+    }
+}
+```  
+
+   
+- TransformationLayout의 사용에 있어 transformationLayout.getParcelableParams()를 필수로 전달해 주어야 한다.  
+- intent의 대상이 되는 activity의 onCreate에서 super.onCreate가 호출 되기 전에 onTransformationEndContainer가 호출 되어야 한다.
 
