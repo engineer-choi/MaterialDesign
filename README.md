@@ -106,6 +106,7 @@ apply plugin: 'kotlin-kapt'
 ```
 
 ### {3} menus.xml
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -128,6 +129,7 @@ apply plugin: 'kotlin-kapt'
         android:title="@string/menu_radio"
         app:showAsAction="ifRoom"/>
 </menu>
+```
 
 ## [2] 프래그먼트 생성하기
 - HomeFragment
