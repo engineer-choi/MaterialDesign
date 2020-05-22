@@ -2,6 +2,13 @@
 
 > 출처 : https://android-arsenal.com/details/1/8049
 
+# index
+[0. gradle 설정](#0)  
+[1. BottomNavigationView, VeiwPager 연동하기](#1)  
+[2. RecyclerView 및 FloatingActionButton 적용하기](#2)  
+[3. CoordinatorLayout을 이용한 AppBar와 NestedScrollView 연동하기](#3)  
+[4. TransformationLayout 이용하여 인텐트에 대한 애니매이션 적용하기](#4)
+
 - 완성된 화면
 
 <center>
@@ -9,7 +16,10 @@
 </center>
 
 
-# 0. gradle 설정
+### [0]
+# gradle 설정  
+
+[목차로 돌아가기](#index)  
 **build.gradle 상단에 아래 코드 작성**
 
 ```kotlin
@@ -26,8 +36,9 @@ apply plugin: 'kotlin-kapt'
     kapt "com.github.bumptech.glide:compiler:4.9.0"
 ```
 
-
-# 1. BottomNavigation & ViewPager 연동하기
+### [1]
+# BottomNavigation & ViewPager 연동하기  
+[목차로 돌아가기](#index)  
 ## [1]. 뷰 짜기
 ### {1} activity_main
 
@@ -95,6 +106,7 @@ apply plugin: 'kotlin-kapt'
 ```
 
 ### {3} menus.xml
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -117,6 +129,7 @@ apply plugin: 'kotlin-kapt'
         android:title="@string/menu_radio"
         app:showAsAction="ifRoom"/>
 </menu>
+```
 
 ## [2] 프래그먼트 생성하기
 - HomeFragment
@@ -186,9 +199,9 @@ class MainActivity : AppCompatActivity() {
     </center>
 </div>
 
-
-# 2.RecyclerView 및 FloatingActionButton 적용하기  
-
+### 2
+# RecyclerView 및 FloatingActionButton 적용하기  
+[목차로 돌아가기](#index)
 <div>
     <center>
     <img src="https://user-images.githubusercontent.com/54485132/77143802-93448980-6ac7-11ea-9751-54129e1c0cb1.png" width="30%">
@@ -401,8 +414,9 @@ target은 CardView이며, transform 신호가 오기 전까지 뷰에서 보이�
  > TransformationLayout이 선언되어있는 Activitiy의 onCreate에 super.onCreate()가 호출 되기 전에 onTransformationStartContainer()를 호출해 주어야 한다. Fragment의 경우 Fragment가 소속되어 있는 Activity의 onCreate()에 선언해 줘야 한다(onCreateView에 하면 안됨)  
  이후 FloatingActionButton 클릭시 이벤트를 추가한다.  
  
- 
-# 3. CoordinatorLayout을 이용한 AppBar와 NestedScrollView 연동하기  
+### 3
+# CoordinatorLayout을 이용한 AppBar와 NestedScrollView 연동하기  
+[목차로 돌아가기](#index)  
 <div>
     <center>
        <img src="https://user-images.githubusercontent.com/54485132/77223836-8006ec00-6ba3-11ea-9e35-b1423089e945.gif" width="45%">
@@ -486,6 +500,56 @@ target은 CardView이며, transform 신호가 오기 전까지 뷰에서 보이�
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
 
+### 4
+# TransformationLayout 이용하여 인텐트에 대한 애니매이션 적용하기  
+[목차로 돌아가기](#index)  
+<div>
+    <center>
+        <img src="https://user-images.githubusercontent.com/54485132/77274266-e18c9f00-6cf8-11ea-8edd-f7175bc2400e.gif" width=40%>
+    </center>
+</div>
 
+  
+### [1] DetailActivity.kt  
+```kotlin
+class DetailActivity : AppCompatActivity() {
 
+    companion object{
+        const val parmasExtraName = "parmasExtraName"
+        const val posterExtraName = "posterExtraName"
+        fun startActivity(
+            context : Context,
+            transformationLayout: TransformationLayout,
+            poster : Poster
+        ) {
+            if(context is Activity){
+                val bundle = transformationLayout.withView(transformationLayout, poster.name)
+                val intent = Intent(context,DetailActivity::class.java)
+                intent.putExtra(parmasExtraName, transformationLayout.getParcelableParams())
+                intent.putExtra(posterExtraName, poster)
+                context.startActivity(intent, bundle)
+            }
+        }
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        onTransformationEndContainer(intent.getParcelableExtra(parmasExtraName))
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_detail)
+        init()
+    }
+    private fun init(){
+        intent.getParcelableExtra<Poster>(posterExtraName)?.let{
+            Glide.with(this)
+                .load(it.poster)
+                .into(img_detailView)
+            tv_detail_title.text = it.name
+            tv_detail_description.text = it.description
+        }
+    }
+}
+```  
+
+   
+- TransformationLayout의 사용에 있어 transformationLayout.getParcelableParams()를 필수로 전달해 주어야 한다.  
+- intent의 대상이 되는 activity의 onCreate에서 super.onCreate가 호출 되기 전에 onTransformationEndContainer가 호출 되어야 한다.
 
