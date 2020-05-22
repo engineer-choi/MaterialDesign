@@ -4,7 +4,7 @@ import com.example.materialexercise.recycler.Poster
 
 
 object MockUtil {
-    fun getMockPosters(): List<Poster> {
+    fun getMockPosters(): List<Poster> {//수정했어요
         return listOf(
             Poster(
                 "Frozen II", "2019", "1 h 43 min",
